@@ -1,42 +1,44 @@
-# X-RAY Abnormality Detection with SSD300-VGG16 🔍
+# SSD300-VGG16 Model Training with XRAY Dataset
 
-A deep learning system to detect 9 chest abnormalities in X-ray images using PyTorch and SSD architecture.
+This repository contains code for training an SSD300-VGG16 object detection model on a custom medical imaging dataset combining NIH and VinBig datasets. The implementation includes data preprocessing, model training, and evaluation metrics visualization.
 
-## Overview  
-- Combines NIH and VinBigData datasets for robust training  
-- Implements SSD300-VGG16 model for object detection  
-- Full pipeline: data preprocessing → training → metrics visualization  
+## Overview
+- **Dataset**: Combined NIH Chest X-ray and VinBigDatasets (9 common abnormalities)
+- **Model**: SSD300 with VGG16 backbone
+- **Key Features**:
+  - Custom data preprocessing pipeline
+  - Class imbalance handling through balanced sampling
+  - Multi-label classification with object detection
+  - Custom weighted loss function
+  - Model evaluation with mAP and ROC metrics
 
-## Features  
-- **Transfer Learning**: Pre-trained SSD300-VGG16 backbone  
-- **Data Preprocessing**: 300x300 resolution conversion + VOC format annotations  
-- **Class Balancing**: Smart sampling for imbalanced abnormalities  
-- **Metrics**: mAP@[0.5:0.95], ROC-AUC, AR@100  
-- **Visualization**: ROC curves, training loss graphs  
+## Dataset Preparation
+### Initial Processing (Pre-DataPreprocessing)
+1. **Dataset Combination**:
+   - Limited both datasets to 9 common abnormalities
+   - Selected only images with bounding box annotations
+   - Combined NIH and VinBig datasets
 
-## Requirements  
-- Python 3.8+  
-- torch==2.0.1  
-- torchvision==0.15.2  
-- pandas  
-- matplotlib  
-- scikit-learn  
-- Pillow  
+2. **Data Balancing**:
+   - Performed balanced sampling to address class imbalance
+   - Final class distribution:
+     - Cardiomegaly
+     - Pleural thickening
+     - Pulmonary fibrosis
+     - Pleural effusion
+     - Nodule/Mass
+     - Infiltration
 
-## Model Architecture  
-- Backbone: Modified VGG16  
-- Feature Pyramid: 6 multi-scale feature maps  
-- Default Boxes: 8732 per image  
-- Heads: 7-class classifier + 4-coordinate regressor  
+3. **Image Processing**:
+   - Resized all images to 300x300 pixels (SSD300 requirement)
+   - Converted annotations to Pascal VOC format
 
-## Training Configuration  
-- **Optimizer**: SGD (lr=0.0001, momentum=0.9)  
-- **Batch Sizes**: 64 (train), 1 (val)  
-- **Epochs**: 300  
-- **Checkpoints**: Saved every 20 epochs  
-
-## Dataset Structure  
-- **Annotations**: XML files in PASCAL VOC format  
-- **Splits**:  
-  - trainval.txt (80% images)  
-  - test.txt (20% images)  
+## Data Preprocessing (`Final_DataPreprocessing.py`)
+### Key Steps:
+1. **Directory Setup**:
+   ```python
+   VOCdevkit/
+   └── VOC2007/
+       ├── Annotations/       # XML annotation files
+       ├── ImageSets/Main/    # Train/val splits
+       └── JPEGImages/        # Processed images

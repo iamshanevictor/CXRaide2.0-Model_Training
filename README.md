@@ -1,39 +1,28 @@
-Medical Image Object Detection with SSD300-VGG16
+Thoracic Abnormality Detection with SSD300-VGG16 🩺🔍
+A deep learning system for detecting 9 common chest abnormalities in X-ray images using PyTorch and SSD architecture.
+
 Overview
-This repository contains code for training an SSD300-VGG16 model to detect 9 common thoracic abnormalities in chest X-ray images. The implementation includes data preprocessing, model training, and evaluation pipelines.
+-- Combines NIH and VinBigData datasets for robust training
+-- Implements SSD300-VGG16 model for object detection
+-- Includes full pipeline from data preprocessing to metrics visualization
 
-Dataset Preparation
-Source Datasets
-NIH Chest X-ray Dataset
+Features
+-- Multi-Dataset Integration
 
-VinBigData Chest X-ray Dataset
+Combines 9 common abnormalities from NIH and VinBigData
 
-Preprocessing Steps:
-Abnormality Selection
-Limited both datasets to 9 common abnormalities:
+Filters images with bounding box annotations
+-- Advanced Preprocessing
 
-Cardiomegaly
+Converts images to 300x300 resolution
 
-Pleural thickening
+Generates PASCAL VOC format annotations
 
-Pulmonary fibrosis
+Balances class distribution through smart sampling
+-- Custom Training
 
-Pleural effusion
+Class-weighted loss function for imbalance handling
 
-Nodule/Mass
+NMS post-processing with adjustable IoU threshold
 
-Infiltration
-
-(Include all 9 classes used)
-
-Bounding Box Filtering
-Selected only images with bounding box annotations
-
-Dataset Combination
-Merged NIH and VinBigData datasets
-
-Class Balancing
-Applied data sampling techniques to address class imbalance
-
-Image Resizing
-Converted all images to 300x300 pixels (SSD300 input requirement)
+LR scheduling via ReduceLROnPlateau

@@ -40,4 +40,8 @@ A deep learning system to detect 9 chest abnormalities in X-ray images using PyT
 - **Splits**:  
   - trainval.txt (70% images)  
   - test.txt (30% images)  
-- **Directory**:  
+- **Directory**:
+- VOCdevkit/VOC2007/
+├── Annotations/
+├── ImageSets/Main/
+└── JPEGImages/

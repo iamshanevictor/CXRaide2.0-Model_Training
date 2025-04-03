@@ -1,4 +1,4 @@
-# Thoracic Abnormality Detection with SSD300-VGG16 🔍
+# X-RAY Abnormality Detection with SSD300-VGG16 🔍
 
 A deep learning system to detect 9 chest abnormalities in X-ray images using PyTorch and SSD architecture.
 

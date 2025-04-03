@@ -3,7 +3,7 @@
 This repository contains code for training an SSD300-VGG16 object detection model on a custom medical imaging dataset combining NIH and VinBig datasets. The implementation includes data preprocessing, model training, and evaluation metrics visualization.
 
 ## Overview
-- **Dataset**: Combined NIH Chest X-ray and VinBigDatasets (9 common abnormalities)
+- **Dataset**: Combined NIH Chest X-ray and VinBigDatasets (6-9 common abnormalities)
 - **Model**: SSD300 with VGG16 backbone
 - **Key Features**:
   - Custom data preprocessing pipeline

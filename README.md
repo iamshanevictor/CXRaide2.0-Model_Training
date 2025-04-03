@@ -38,10 +38,5 @@ A deep learning system to detect 9 chest abnormalities in X-ray images using PyT
 ## Dataset Structure  
 - **Annotations**: XML files in PASCAL VOC format  
 - **Splits**:  
-  - trainval.txt (70% images)  
-  - test.txt (30% images)  
-- **Directory**:
-- VOCdevkit/VOC2007/
-├── Annotations/
-├── ImageSets/Main/
-└── JPEGImages/
+  - trainval.txt (80% images)  
+  - test.txt (20% images)  

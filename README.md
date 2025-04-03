@@ -64,21 +64,37 @@ This repository contains code for training an SSD300-VGG16 object detection mode
    - Processes CSV files containing bounding box information
    - Creates Pascal VOC-style XML annotations using ElementTree
   
-## Model Training (Model_Training.py)
-### Architecture & Training Details
-  - Base Model: SSD300-VGG16 (pretrained on COCO)
-  - Modifications:
-    - Custom classification head for 7 classes (6 abnormalities + background)
-    - Class weights for imbalanced data handling
-  - Training Parameters:
-    - Batch size: 64 (training), 1 (validation)
-    - Optimizer: SGD (lr=0.0001, momentum=0.9)
-    - Scheduler: ReduceLROnPlateau
-    - Epochs: 300
-### Key Features:
-  - Custom Dataset Class:
-    - Handles both bounding boxes and multi-label classification
-    - Includes error handling for corrupted samples
+## Model Architecture
+### SSD300-VGG16 Configuration:
+  - Backbone: Modified VGG16 with pretrained weights
+  - Detection Head:
+    ```python
+    model.head.classification_head.num_classes = num_classes  # Updated to 7 classes
+  - Input Specifications:
+    - Fixed 300x300 RGB input
+    - Normalization: Implicit in pretrained weightsg
+      
+### Training Pipeline:
+  - Data Loading:
+    - Custom Dataset Class:
+      ```python
+      class CustomDataset(Dataset):
+      def __getitem__(self, idx):
+          # Handles multi-label targets and bounding boxes
+          return image, {
+              "boxes": torch.as_tensor(bbox),
+              "labels": labels,
+              "multi_labels": multi_labels
+          }
+    - Dynamic learning rate adjustment based on validation loss
+    - Initial LR: 0.0001 with SGD momentum (0.9)
+      
+### Optimization Strategy:
+  - Learning Rate Scheduling:
+    ```python
+    scheduler = ReduceLROnPlateau(optimizer, mode='min', patience=3, factor=0.5)
+  - Handles both bounding boxes and multi-label classification
+  - Includes error handling for corrupted samples
   - Custom Loss Function:
     ```python
     def custom_loss_fn(loss_dict, targets, class_weights):

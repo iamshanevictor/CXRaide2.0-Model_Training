@@ -52,14 +52,14 @@ This repository contains code for training an SSD300-VGG16 object detection mode
       - Handles both training (balance_TRAINING) and validation (balance_VALIDATION) sets
       - Maintains original filenames during copy operations
    - Dataset Splits:
-     -File List Generation:
+     - File List Generation:
        ```python
        # Creates trainval.txt and test.txt for dataset splits
-      with open(os.path.join(image_sets_folder, 'trainval.txt'), 'w') as f:
-          for filename in trainval_filenames:
-              f.write(f"{filename}\n")
-    - Generates standardized VOC format split files
-    - Uses unique image IDs from CSV files
+        with open(os.path.join(image_sets_folder, 'trainval.txt'), 'w') as f:
+            for filename in trainval_filenames:
+                f.write(f"{filename}\n")
+      - Generates standardized VOC format split files
+      - Uses unique image IDs from CSV files
 3. **Annotation Generation**:
    - Processes CSV files containing bounding box information
    - Creates Pascal VOC-style XML annotations using ElementTree
